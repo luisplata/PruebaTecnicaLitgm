@@ -1,0 +1,16 @@
+{
+    "name": "ServiceLocatorAssemble",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2c02a11fb810ba94399de46c048c4c7a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

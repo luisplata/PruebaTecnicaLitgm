@@ -1,0 +1,17 @@
+{
+    "name": "FactoryAssemble",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5ce7b30cdca0d564c9ddfa456a979422",
+        "GUID:4710ac1179639164ea28792b2b72e7dd"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
