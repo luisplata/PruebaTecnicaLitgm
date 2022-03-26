@@ -6,6 +6,11 @@ namespace ResourceFromLITGM.Scripts.Guns.View
     public abstract class GunCustom : MonoBehaviour, IGunCustom
     {
         [SerializeField] protected GunType id;
+        [SerializeField] private float _force;
+        [SerializeField] private Rigidbody rb;
+        [SerializeField] private Collider col;
+        [SerializeField] private Renderer rend;
+        [SerializeField] protected GameObject pointToSpawn;
 
         public GunType Id => id;
 
@@ -19,14 +24,31 @@ namespace ResourceFromLITGM.Scripts.Guns.View
                 _ => Color.cyan
             };
 
-            GetComponent<Renderer>().material.color = color;
+            rend.material.color = color;
         }
 
-        public void Take()
+        public void Take(AnimationsGuns animationsGuns)
         {
-            Debug.Log($"{name} taken");
-            //destroy element and add to inventory
-            Destroy(gameObject);
+            //tiene que ser hijo de la referencia de la animacion con all en cero para que siga la animacion
+            DisableAllComponents();
+            animationsGuns.AddGun(this);
         }
+
+        private void DisableAllComponents()
+        {
+            rb.isKinematic = true;
+            col.enabled = false;
+        }
+
+        public void Leave()
+        {
+            var directionToShootGun = transform.parent.transform.forward;
+            rb.isKinematic = false;
+            rb.AddForce(directionToShootGun * _force, ForceMode.Impulse);
+            transform.parent = null;
+            col.enabled = true;
+        }
+
+        public abstract void Shoot(float angle);
     }
 }
