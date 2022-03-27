@@ -49,6 +49,6 @@ namespace ResourceFromLITGM.Scripts.Guns.View
             col.enabled = true;
         }
 
-        public abstract void Shoot(float angle);
+        public abstract void Shoot(float angle, Vector3 targetPoint);
     }
 }

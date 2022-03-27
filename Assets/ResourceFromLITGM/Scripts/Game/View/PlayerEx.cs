@@ -23,9 +23,18 @@ public class PlayerEx : MonoBehaviour
         {
             //gun will shooting
             float angle = Vector3.Angle(camTransform.forward, transform.forward);
-            Debug.Log($"Shoot {angle}");
+            Vector3 target;
+            if(Physics.Raycast (camTransform.position, camTransform.forward, out var targetHit, 100)) {
+                Debug.Log($"info {targetHit.point}");
+                target = targetHit.point;
+            }else
+            {
+                //Debug.Log($"target with not hit {transform.forward + new Vector3(0, 0, 10)}");
+                target = transform.position + transform.forward * 10;
+            }
+            //Debug.Log($"Shoot {angle}");
             //Debug.Log("shooting");
-            animationsGuns.Shoot(angle);
+            animationsGuns.Shoot(angle, target);
         }
     }
 

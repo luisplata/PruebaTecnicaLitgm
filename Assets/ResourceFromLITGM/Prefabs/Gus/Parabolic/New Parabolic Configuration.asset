@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56fb7def9b024e74b193c681adad5214, type: 3}
   m_Name: New Parabolic Configuration
   m_EditorClassIdentifier: 
-  forceOfLaunch: 10
+  forceOfLaunch: 1
+  heightOfLaunch: 1

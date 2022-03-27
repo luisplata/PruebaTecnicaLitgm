@@ -12,12 +12,14 @@ namespace Mathematics
         private readonly ISimulatorView _view;
         private readonly float _positionX;
         private readonly float _positionY;
+        private float _height;
 
-        public Calculating(float potencia, float angle, ISimulatorView view)
+        public Calculating(float potencia, float height, float angle, ISimulatorView view)
         {
             _power = potencia;
             _angle = angle;
             _view = view;
+            _height = height;
             _positionX = _view.PositionInX();
             _positionY = _view.PositionInY();
             
@@ -51,6 +53,15 @@ namespace Mathematics
             
             //Result
             return new Vector2(x1, y1);
+        }
+        
+        public Vector3 Calc3D(Vector3 start, Vector3 end, float time)
+        {
+            Func<float, float> f = x => (_power * -1) * _height * x * x + _power * _height * x;
+
+            var mid = Vector3.Lerp(start, end, time);
+
+            return new Vector3(mid.x, f(time) + Mathf.Lerp(start.y, end.y, time), mid.z);
         }
 
         public List<Vector2> Prediction()

@@ -9,9 +9,18 @@ namespace ResourceFromLITGM.Scripts.Guns.View
     {
         private Calculating calc;
         private float time;
-        public void Configure(float angle, ParabolicConfiguration parabolicConfiguration)
+        private GameObject target;
+        public void Configure(float angle, ParabolicConfiguration parabolicConfiguration, Vector3 targetPoint)
         {
-            calc = new Calculating(parabolicConfiguration.ForceOfLaunch, angle, this);
+            target = new GameObject
+            {
+                transform =
+                {
+                    position = targetPoint
+                }
+            };
+            //Debug.Log($"position {transform.position} target {targetPoint}");
+            calc = new Calculating(parabolicConfiguration.ForceOfLaunch, parabolicConfiguration.HeightOfLaunch, angle, this);
             time = 0;
         }
 
@@ -21,10 +30,15 @@ namespace ResourceFromLITGM.Scripts.Guns.View
             {
                 if (calc == null) return;
                 time += Time.deltaTime;
-                var position = calc.Calc(time);
-                var positionWithTime = new Vector3( transform.position.x, position.y, position.x);
-                //var alterPosition = transform.position + positionWithTime;
+                var position = calc.Calc3D(transform.position, target.transform.position, time);
+                var positionWithTime = new Vector3( position.x, position.y, position.z);
+                //Debug.Log($"update {position}");
                 transform.position = positionWithTime;
+                if((target.transform.position - transform.position).magnitude < .1f)
+                {
+                    Destroy(target);
+                    Destroy(gameObject);
+                }
             }
             catch (Exception e)
             {
@@ -85,6 +99,21 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         public void CreatePoints(List<Vector2> resultList)
         {
             throw new System.NotImplementedException();
+        }
+
+        public Vector3 PositionOrigin()
+        {
+            return transform.position;
+        }
+
+        public Vector3 PositionEnd()
+        {
+            return target.transform.position;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -16,5 +16,7 @@ namespace Mathematics
         void ResetList();
         void ShowMessage(string message);
         void CreatePoints(List<Vector2> resultList);
+        Vector3 PositionOrigin();
+        Vector3 PositionEnd();
     }
 }

@@ -37,8 +37,8 @@ public class AnimationsGuns : MonoBehaviour
         return concurrenGun != null;
     }
 
-    public void Shoot(float angle)
+    public void Shoot(float angle, Vector3 targetPoint)
     {
-        concurrenGun.Shoot(angle);
+        concurrenGun.Shoot(angle, targetPoint);
     }
 }

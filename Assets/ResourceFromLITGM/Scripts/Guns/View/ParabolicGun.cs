@@ -6,14 +6,17 @@ namespace ResourceFromLITGM.Scripts.Guns.View
     {
         [SerializeField] private ParabolicArmo armo;
         [SerializeField] private ParabolicConfiguration _configuration;
-        public override void Shoot(float angle)
+        public override void Shoot(float angle, Vector3 targetPoint)
         {
-            Debug.Log($"spawn point is {pointToSpawn.transform.localPosition}");
-            var rotationLocal = pointToSpawn.transform.rotation;
-            rotationLocal.x = 0;
-            var parabolicArmo = Instantiate(armo, pointToSpawn.transform.position, rotationLocal);
+            var parabolicArmo = Instantiate(armo);
+            parabolicArmo.transform.position = pointToSpawn.transform.position;
+            var localRotation = pointToSpawn.transform.rotation;
+            localRotation.x = 0;
+            localRotation.z = 0;
+            parabolicArmo.transform.rotation = localRotation;
             //get the angle of the gun
-            parabolicArmo.Configure(angle, _configuration);
+            Debug.Log($"point to spawn {pointToSpawn.transform.position}");
+            parabolicArmo.Configure(angle, _configuration, targetPoint);
         }
     }
 }
