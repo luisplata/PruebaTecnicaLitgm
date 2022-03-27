@@ -19,8 +19,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
                     position = targetPoint
                 }
             };
-            //Debug.Log($"position {transform.position} target {targetPoint}");
-            calc = new Calculating(parabolicConfiguration.ForceOfLaunch, parabolicConfiguration.HeightOfLaunch, angle, this);
+            calc = new Calculating(parabolicConfiguration.ForceOfLaunch, parabolicConfiguration.HeightOfLaunch, this);
             time = 0;
         }
 
@@ -31,9 +30,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
                 if (calc == null) return;
                 time += Time.deltaTime;
                 var position = calc.Calc3D(transform.position, target.transform.position, time);
-                var positionWithTime = new Vector3( position.x, position.y, position.z);
-                //Debug.Log($"update {position}");
-                transform.position = positionWithTime;
+                transform.position = position;
                 if((target.transform.position - transform.position).magnitude < .1f)
                 {
                     Destroy(target);
@@ -42,7 +39,8 @@ namespace ResourceFromLITGM.Scripts.Guns.View
             }
             catch (Exception e)
             {
-                //Debug.Log(e);
+                Destroy(target);
+                Destroy(gameObject);
             }
         }
 
@@ -54,66 +52,6 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         public float PositionInY()
         {
             return transform.position.y;
-        }
-
-        public string GetAngle()
-        {
-            return "0";
-        }
-
-        public string GetPower()
-        {
-            return "0";
-        }
-
-        public string GetEstimate()
-        {
-            return "0";
-        }
-
-        public void CreatePoint(Vector2 position)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void PlayerWin()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void PlayerFail()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ResetList()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ShowMessage(string message)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void CreatePoints(List<Vector2> resultList)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Vector3 PositionOrigin()
-        {
-            return transform.position;
-        }
-
-        public Vector3 PositionEnd()
-        {
-            return target.transform.position;
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            Destroy(gameObject);
         }
     }
 }

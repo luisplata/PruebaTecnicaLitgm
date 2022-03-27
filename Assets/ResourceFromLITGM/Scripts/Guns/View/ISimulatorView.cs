@@ -7,16 +7,5 @@ namespace Mathematics
     {
         float PositionInX();
         float PositionInY();
-        string GetAngle();
-        string GetPower();
-        string GetEstimate();
-        void CreatePoint(Vector2 position);
-        void PlayerWin();
-        void PlayerFail();
-        void ResetList();
-        void ShowMessage(string message);
-        void CreatePoints(List<Vector2> resultList);
-        Vector3 PositionOrigin();
-        Vector3 PositionEnd();
     }
 }

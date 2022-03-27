@@ -14,6 +14,7 @@ namespace Mathematics
         private readonly float _positionY;
         private float _height;
 
+        //Constuctor for the simulator in 2D
         public Calculating(float potencia, float height, float angle, ISimulatorView view)
         {
             _power = potencia;
@@ -32,6 +33,14 @@ namespace Mathematics
             {
                 throw new CalculatinException("El angulo debe ser entre 0 y 90 grados");
             }
+        }
+        
+        //Constuctor for the simulator in 3D
+        public Calculating(float potencia, float height, ISimulatorView view)
+        {
+            _power = potencia;
+            _view = view;
+            _height = height;
         }
 
         public Vector2 Calc(float time)
