@@ -29,7 +29,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
             {
                 if (calc == null) return;
                 time += Time.deltaTime;
-                var position = calc.Calc3D(transform.position, target.transform.position, time);
+                var position = calc.CalcParabolic3D(transform.position, target.transform.position, time);
                 transform.position = position;
                 if((target.transform.position - transform.position).magnitude < .1f)
                 {

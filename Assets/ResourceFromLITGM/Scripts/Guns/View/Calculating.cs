@@ -42,34 +42,34 @@ namespace Mathematics
             _height = height;
         }
 
-        public Vector2 Calc(float time)
+        public Vector2 CalcParabolic(float time)
         {
-            var v0 = _power;
-            var v0X = (float)Math.Cos(Mathf.Deg2Rad * _angle) * v0;
-            var v0Y = (float)Math.Sin(Mathf.Deg2Rad * _angle) * v0;
-            var x0 = _positionX;
-            var y0 = _positionY;
+            var velicityInitial = _power;
+            var velocityInitialInX = (float)Math.Cos(Mathf.Deg2Rad * _angle) * velicityInitial;
+            var velocityInitialInY = (float)Math.Sin(Mathf.Deg2Rad * _angle) * velicityInitial;
+            var positionInX = _positionX;
+            var positionInY = _positionY;
 
             //calculating
-            var x1 = v0X * time + x0;
-            var y1 = v0Y * time - 0.5f * Word.Gravity * Mathf.Pow(time, 2) + y0;
+            var newPositionInX = velocityInitialInX * time + positionInX;
+            var newPositionInY = velocityInitialInY * time - 0.5f * Word.Gravity * Mathf.Pow(time, 2) + positionInY;
 
-            if (y1 < _view.PositionInY())
+            if (newPositionInY < _view.PositionInY())
             {
                 throw new CalcLimitException("Hasta aqui llega la simulación");
             }
             
             //Result
-            return new Vector2(x1, y1);
+            return new Vector2(newPositionInX, newPositionInY);
         }
         
-        public Vector3 Calc3D(Vector3 start, Vector3 end, float time)
+        public Vector3 CalcParabolic3D(Vector3 start, Vector3 end, float time)
         {
-            Func<float, float> f = x => (_power * -1) * _height * x * x + _power * _height * x;
+            Func<float, float> funcOfCalcParabolic = x => (_power * -1) * _height * x * x + _power * _height * x;
 
-            var mid = Vector3.Lerp(start, end, time);
+            var distancie = Vector3.Lerp(start, end, time);
 
-            return new Vector3(mid.x, f(time) + Mathf.Lerp(start.y, end.y, time), mid.z);
+            return new Vector3(distancie.x, funcOfCalcParabolic(time) + Mathf.Lerp(start.y, end.y, time), distancie.z);
         }
 
         public List<Vector2> Prediction()
@@ -86,7 +86,7 @@ namespace Mathematics
             {
                 try
                 {
-                    list.Add(Calc(i));
+                    list.Add(CalcParabolic(i));
                 }
                 catch (CalcLimitException)
                 {
