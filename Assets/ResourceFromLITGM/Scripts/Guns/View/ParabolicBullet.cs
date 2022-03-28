@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ResourceFromLITGM.Scripts.Guns.View
 {
-    class ParabolicArmo : MonoBehaviour, ISimulatorView
+    class ParabolicBullet : MonoBehaviour, ISimulatorView
     {
         private Calculating calc;
         private float time;

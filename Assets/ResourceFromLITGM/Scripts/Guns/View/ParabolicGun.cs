@@ -4,11 +4,11 @@ namespace ResourceFromLITGM.Scripts.Guns.View
 {
     class ParabolicGun : GunCustom
     {
-        [SerializeField] private ParabolicArmo armo;
+        [SerializeField] private ParabolicBullet bullet;
         [SerializeField] private ParabolicConfiguration _configuration;
         public override void Shoot(float angle, Vector3 targetPoint)
         {
-            var parabolicArmo = Instantiate(armo);
+            var parabolicArmo = Instantiate(bullet);
             parabolicArmo.transform.position = pointToSpawn.transform.position;
             var localRotation = pointToSpawn.transform.rotation;
             localRotation.x = 0;

@@ -6,7 +6,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
     public abstract class GunCustom : MonoBehaviour, IGunCustom
     {
         [SerializeField] protected GunType id;
-        [SerializeField] private float _force;
+        [SerializeField] private float forceToLeaveGun;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private Collider col;
         [SerializeField] private Renderer rend;
@@ -44,7 +44,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         {
             var directionToShootGun = transform.parent.transform.forward;
             rb.isKinematic = false;
-            rb.AddForce(directionToShootGun * _force, ForceMode.Impulse);
+            rb.AddForce(directionToShootGun * forceToLeaveGun, ForceMode.Impulse);
             transform.parent = null;
             col.enabled = true;
         }

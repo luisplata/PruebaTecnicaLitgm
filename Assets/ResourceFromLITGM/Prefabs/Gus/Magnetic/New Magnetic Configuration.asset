@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56fb7def9b024e74b193c681adad5214, type: 3}
-  m_Name: New Parabolic Configuration
+  m_Script: {fileID: 11500000, guid: 28302b8332314cd1844a6e5a82c4fa7d, type: 3}
+  m_Name: New Magnetic Configuration
   m_EditorClassIdentifier: 
-  forceOfLaunch: 1
-  heightOfLaunch: 10
+  radius: 5

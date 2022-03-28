@@ -141,12 +141,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  _force: 0
+  forceToLeaveGun: 0
   rb: {fileID: 8855016980537610955}
   col: {fileID: 3097665138599418212}
   rend: {fileID: 6241997700311504036}
   pointToSpawn: {fileID: 948676747128150558}
-  armo: {fileID: -7136162996343939973, guid: 4863661f0eb8696408b43eeb29b7b53e, type: 3}
+  bullet: {fileID: -7136162996343939973, guid: 4863661f0eb8696408b43eeb29b7b53e, type: 3}
   _configuration: {fileID: 11400000, guid: fd15d8c7609f863489f829d0976c860c, type: 2}
 --- !u!54 &8855016980537610955
 Rigidbody:
