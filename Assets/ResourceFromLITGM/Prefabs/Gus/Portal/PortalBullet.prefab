@@ -236,7 +236,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8093862644142239182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.03}
   m_LocalScale: {x: 1, y: 0.03, z: 1}
   m_Children:
   - {fileID: 8093862645342915955}
@@ -302,7 +302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8093862645134558042}
   - component: {fileID: 8093862645134558043}
-  - component: {fileID: 8948212864112370591}
+  - component: {fileID: 2818804936158259287}
   m_Layer: 2
   m_Name: PortalBullet
   m_TagString: Bullet
@@ -340,13 +340,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 8093862645134558043}
-  _otherCamera: {fileID: 0}
   cameraSelf: {fileID: 5531982523434524837}
-  renderTextureFromOtherCamera: {fileID: 0}
-  player: {fileID: 0}
-  _pointToSpawn: {fileID: 4772331911059327788}
---- !u!135 &8948212864112370591
-SphereCollider:
+  _image: {fileID: 597769942895058906}
+--- !u!65 &2818804936158259287
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -356,8 +353,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.9560043, z: 0.1}
+  m_Center: {x: 0, y: 0.5460252, z: 0.1}
 --- !u!1 &8093862645342915954
 GameObject:
   m_ObjectHideFlags: 0

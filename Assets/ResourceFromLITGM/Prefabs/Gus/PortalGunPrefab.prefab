@@ -163,3 +163,4 @@ MonoBehaviour:
   rend: {fileID: 6241997700311504036}
   pointToSpawn: {fileID: 5095716893769216052}
   bullet: {fileID: 8093862645134558043, guid: b135d5868cb7cc74ca36ba30c33dd261, type: 3}
+  configuration: {fileID: 11400000, guid: 8710d2af502180d4e8c92a707562e3d4, type: 2}

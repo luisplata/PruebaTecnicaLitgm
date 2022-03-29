@@ -1,16 +1,16 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PortalBullet : MonoBehaviour
 {
     [SerializeField] private PortalBullet _camera;
-    [SerializeField] private PortalBullet _otherCamera;
     [SerializeField] private Camera cameraSelf;
-    [SerializeField] private RenderTexture renderTextureFromOtherCamera;
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject _pointToSpawn;
+    [SerializeField] private RawImage _image;
+    private GameObject _player;
+    private PortalBullet _otherCamera;
+    private bool canTeleport = true;
 
     private Camera GetCamera()
     {
@@ -21,7 +21,6 @@ public class PortalBullet : MonoBehaviour
     {
         if(_camera != null && _otherCamera != null)
         {
-            //Debug.Log("Updating");
             Quaternion direction = Quaternion.Inverse(_otherCamera.transform.rotation) * Camera.main.transform.rotation;
             _otherCamera.GetCamera().transform.localEulerAngles = new Vector3(direction.x, direction.y, direction.z);
             Vector3 distancia = transform.InverseTransformPoint(Camera.main.transform.position);
@@ -29,29 +28,39 @@ public class PortalBullet : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Vector3 playerFromPortal = transform.InverseTransformPoint(player.transform.position);
-            //Debug.Log($"distance: {playerFromPortal.z}");
-            if (playerFromPortal.z <= .5f)
-            {
-                Debug.Log($"teleporting {gameObject.name}");
-                var transform1 = _otherCamera.transform;
-                player.transform.position = transform1.position + new Vector3(-playerFromPortal.x, +playerFromPortal.y, -playerFromPortal.z);
-
-                var eulerAngles = transform1.eulerAngles;
-                player.transform.eulerAngles = Vector3.up * 
-                                               (eulerAngles.y -
-                                                   (transform.eulerAngles.y - player.transform.eulerAngles.y) + 180);
-                player.transform.localEulerAngles = Vector3.right * (eulerAngles.x + player.transform.localEulerAngles.x);
-            }
+            other.GetComponent<Collider>().enabled = false;
+            _otherCamera.DisableCollider();
+            _player.transform.position = _otherCamera.transform.position;
+            var eulerAngles = _otherCamera.GetCamera().transform.eulerAngles;
+            _player.transform.eulerAngles = Vector3.up * 
+                                            (eulerAngles.y -
+                                                (GetCamera().transform.eulerAngles.y - _player.transform.eulerAngles.y) + 180);
+            _player.transform.localEulerAngles = Vector3.right * (eulerAngles.x + _player.transform.localEulerAngles.x);
+            other.GetComponent<Collider>().enabled = true;
         }
     }
 
-    private Vector3 GetPointToSpawn()
+    private void DisableCollider()
     {
-        return _pointToSpawn.transform.position;
+        StartCoroutine(DisableColliderCoroutine());
+    }
+
+    private IEnumerator DisableColliderCoroutine()
+    {
+        GetComponent<Collider>().enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<Collider>().enabled = true;
+    }
+
+    public void Configure(PortalBullet otherPortal, GameObject player, RenderTexture withShowImage,RenderTexture withCaptureCamera)
+    {
+        _otherCamera = otherPortal;
+        _player = player;
+        _image.texture = withShowImage;
+        cameraSelf.targetTexture = withCaptureCamera;
     }
 }

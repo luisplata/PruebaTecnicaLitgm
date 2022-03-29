@@ -11,10 +11,11 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         [SerializeField] private Collider col;
         [SerializeField] private Renderer rend;
         [SerializeField] protected GameObject pointToSpawn;
+        protected GameObject _player; 
 
         public GunType Id => id;
 
-        private void Start()
+        protected virtual void Start()
         {
             var color = Id switch
             {
@@ -27,12 +28,16 @@ namespace ResourceFromLITGM.Scripts.Guns.View
             rend.material.color = color;
         }
 
-        public void Take(AnimationsGuns animationsGuns)
+        public void Take(AnimationsGuns animationsGuns,GameObject player)
         {
             //tiene que ser hijo de la referencia de la animacion con all en cero para que siga la animacion
             DisableAllComponents();
             animationsGuns.AddGun(this);
+            _player = player;
+            AfterTake();
         }
+
+        protected virtual void AfterTake(){}
 
         private void DisableAllComponents()
         {
@@ -49,6 +54,6 @@ namespace ResourceFromLITGM.Scripts.Guns.View
             col.enabled = true;
         }
 
-        public abstract void Shoot(float angle, Vector3 targetPoint);
+        public abstract void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet);
     }
 }

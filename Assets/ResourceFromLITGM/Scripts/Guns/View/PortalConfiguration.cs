@@ -4,5 +4,12 @@
 public class PortalConfiguration : ScriptableObject
 {
     [SerializeField]private float radius;
+    [SerializeField]private RenderTexture renderTexturePortal1, renderTexturePortal2;
+    [SerializeField]private Material materialPortal1, materialPortal2;
     public float Radius => radius;
+    public RenderTexture RenderTexturePortal1 => renderTexturePortal1;
+    public RenderTexture RenderTexturePortal2 => renderTexturePortal2;
+    public Material MaterialPortal1 => materialPortal1;
+    public Material MaterialPortal2 => materialPortal2;
+    
 }

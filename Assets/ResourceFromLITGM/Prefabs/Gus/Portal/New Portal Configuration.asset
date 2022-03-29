@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: New Portal Configuration
   m_EditorClassIdentifier: 
   radius: 0
+  renderTexturePortal1: {fileID: 8400000, guid: eb1e74ff49a34d342b6d5265b6ffb9ff, type: 2}
+  renderTexturePortal2: {fileID: 8400000, guid: e5ee05af8622681428adf0df1fae5139, type: 2}
+  materialPortal1: {fileID: 2100000, guid: dbe0a8a0087040b47a07290c46dab058, type: 2}
+  materialPortal2: {fileID: 2100000, guid: 6c86c4260ba7be54dbd151b6b8a0009c, type: 2}
