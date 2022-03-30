@@ -1,9 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class OrbitVortex : MonoBehaviour
 {
     private Transform _target;
     private bool canVortex;
+
+    private void Start()
+    {
+        GetComponent<Rigidbody>().useGravity = false;
+    }
 
     private void Update()
     {

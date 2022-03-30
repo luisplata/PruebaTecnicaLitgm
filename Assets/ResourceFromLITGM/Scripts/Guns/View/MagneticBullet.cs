@@ -32,7 +32,7 @@ public class MagneticBullet : MonoBehaviour
     private void OnCollisionEnterInBullet(Collider collision)
     {
         if (indexVortex >= pointToVortex.Count - 1 || _vortex[indexVortex] != null) return;
-        Debug.Log($"name {collision.name}");
+        //Debug.Log($"name {collision.name}");
         _vortex[indexVortex] = collision.gameObject;
         indexVortex++;
         canVortex = true;

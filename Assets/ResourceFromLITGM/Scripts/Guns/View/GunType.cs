@@ -5,5 +5,7 @@
         Parabolic,
         Magnetic,
         Portal,
+        Leviosa,
+        Cut
     }
 }

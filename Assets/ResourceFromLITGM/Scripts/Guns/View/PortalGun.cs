@@ -19,8 +19,9 @@ namespace ResourceFromLITGM.Scripts.Guns.View
             secondPortal.gameObject.SetActive(false);
         }
 
-        public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet)
+        public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult)
         {
+            if (!rayResult.CompareTag("Wall")) return;
             var fromToRotation = Quaternion.FromToRotation(transform.forward, rotationBullet) * transform.rotation;
             if (indexToPortals == 0)
             {
@@ -29,6 +30,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
                 firstPortal.transform.rotation = fromToRotation;
                 firstPortal.transform.rotation = Quaternion.Euler(new Vector3(firstPortal.transform.rotation.eulerAngles.x, firstPortal.transform.rotation.eulerAngles.y, 0));
                 indexToPortals++;
+                firstPortal.Configure();
             }else if(indexToPortals == 1)
             {
                 secondPortal.gameObject.SetActive(true);
@@ -36,14 +38,15 @@ namespace ResourceFromLITGM.Scripts.Guns.View
                 secondPortal.transform.rotation = fromToRotation;
                 secondPortal.transform.rotation = Quaternion.Euler(new Vector3(secondPortal.transform.rotation.eulerAngles.x, secondPortal.transform.rotation.eulerAngles.y, 0));
                 indexToPortals = 0;
+                secondPortal.Configure();
             }
         }
 
         protected override void AfterTake()
         {
             base.AfterTake();
-            firstPortal.Configure(secondPortal, _player, configuration.RenderTexturePortal2, configuration.RenderTexturePortal1);
-            secondPortal.Configure(firstPortal, _player, configuration.RenderTexturePortal1, configuration.RenderTexturePortal2);
+            firstPortal.Configure(secondPortal, _player.gameObject, configuration.RenderTexturePortal2, configuration.RenderTexturePortal1);
+            secondPortal.Configure(firstPortal, _player.gameObject, configuration.RenderTexturePortal1, configuration.RenderTexturePortal2);
         }
     }
 }

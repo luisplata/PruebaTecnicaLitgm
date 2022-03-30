@@ -11,7 +11,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         [SerializeField] private Collider col;
         [SerializeField] private Renderer rend;
         [SerializeField] protected GameObject pointToSpawn;
-        protected GameObject _player; 
+        protected PlayerEx _player; 
 
         public GunType Id => id;
 
@@ -22,13 +22,15 @@ namespace ResourceFromLITGM.Scripts.Guns.View
                 GunType.Magnetic =>Color.magenta,
                 GunType.Parabolic => Color.blue,
                 GunType.Portal => Color.green,
+                GunType.Leviosa => Color.red,
+                GunType.Cut => Color.yellow,
                 _ => Color.cyan
             };
 
             rend.material.color = color;
         }
 
-        public void Take(AnimationsGuns animationsGuns,GameObject player)
+        public void Take(AnimationsGuns animationsGuns,PlayerEx player)
         {
             //tiene que ser hijo de la referencia de la animacion con all en cero para que siga la animacion
             DisableAllComponents();
@@ -54,6 +56,6 @@ namespace ResourceFromLITGM.Scripts.Guns.View
             col.enabled = true;
         }
 
-        public abstract void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet);
+        public abstract void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult);
     }
 }

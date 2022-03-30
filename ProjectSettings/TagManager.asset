@@ -7,6 +7,9 @@ TagManager:
   - CinemachineTarget
   - Build
   - Bullet
+  - Portal
+  - Wall
+  - Cut
   layers:
   - Default
   - TransparentFX

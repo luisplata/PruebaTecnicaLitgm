@@ -6,7 +6,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
     {
         [SerializeField] private MagneticBullet bullet;  
         [SerializeField] private MagneticConfiguration configuration;
-        public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet)
+        public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult)
         {
             var magneticBullet = Instantiate(bullet, targetPoint, Quaternion.identity);
             magneticBullet.Configurate(configuration);

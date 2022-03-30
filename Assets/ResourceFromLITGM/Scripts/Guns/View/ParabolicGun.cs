@@ -6,7 +6,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
     {
         [SerializeField] private ParabolicBullet bullet;
         [SerializeField] private ParabolicConfiguration _configuration;
-        public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet)
+        public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult)
         {
             var parabolicArmo = Instantiate(bullet);
             parabolicArmo.transform.position = pointToSpawn.transform.position;

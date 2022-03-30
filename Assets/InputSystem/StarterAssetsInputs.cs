@@ -20,7 +20,7 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			playerEx.Configure();
+			playerEx.Configure(this);
 		}
 #if !UNITY_IOS || !UNITY_ANDROID
 		[Header("Mouse Cursor Settings")]
@@ -93,6 +93,10 @@ namespace StarterAssets
 
 #endif
 
+		public void MoveWitOtherWay(Vector3 direction)
+		{
+			move = direction;
+		}
 	}
 	
 }
