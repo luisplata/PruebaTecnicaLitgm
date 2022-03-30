@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ServiceLocatorPath;
+using UnityEngine;
 
 namespace ResourceFromLITGM.Scripts.Guns.View
 {
@@ -8,7 +9,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         [SerializeField] private ParabolicConfiguration _configuration;
         public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult)
         {
-            var parabolicArmo = Instantiate(bullet);
+            var parabolicArmo = ServiceLocator.Instance.GetService<IBulletPool>().Spawn<ParabolicBullet>(BulletType.Parabolic);//Instantiate(bullet);
             parabolicArmo.transform.position = pointToSpawn.transform.position;
             var localRotation = pointToSpawn.transform.rotation;
             localRotation.x = 0;

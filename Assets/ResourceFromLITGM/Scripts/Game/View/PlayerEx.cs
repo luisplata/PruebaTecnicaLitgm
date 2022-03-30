@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ResourceFromLITGM.Scripts.Guns.View;
+using ServiceLocatorPath;
 using StarterAssets;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class PlayerEx : MonoBehaviour
 {
     [SerializeField] private Camera cam;
     [SerializeField] private AnimationsGuns animationsGuns;
+    [SerializeField] private ObjectPoolForBullets objectPoolForBullets; 
     private Transform camTransform;
     private StarterAssetsInputs _extendSystem;
 
@@ -49,6 +51,10 @@ public class PlayerEx : MonoBehaviour
     {
         _extendSystem = extendSystem;
         camTransform = cam.transform;
+        //adding in service locator set of object pool for bullets
+        objectPoolForBullets.Configure();
+        ServiceLocator.Instance.RegisterService<IBulletPool>(objectPoolForBullets);
+        
     }
 
     public void Move(Vector3 direction)

@@ -1,0 +1,5 @@
+﻿enum BulletType
+{
+    Magnetic,
+    Parabolic
+}

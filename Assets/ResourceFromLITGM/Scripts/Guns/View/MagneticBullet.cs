@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagneticBullet : MonoBehaviour
+public class MagneticBullet : RecyclableObject
 {
     [SerializeField] private List<GameObject> pointToVortex;
     [SerializeField] private SphereCollider _collider;
@@ -12,15 +12,20 @@ public class MagneticBullet : MonoBehaviour
     private GameObject[] _vortex;
     private int indexVortex;
     private bool canVortex;
+    private List<OrbitVortex> _listObjects;
+    private MagneticConfiguration _configuration;
 
     public void Configurate(MagneticConfiguration config)
     {
-        _collider.radius = config.Radius;
+        _configuration = config;
+        _collider.radius = _configuration.Radius;
         _collider.enabled = true;
         _collisionMageneticBullet.onCollisionEnterInBullet += OnCollisionEnterInBullet;
         _animator.SetTrigger("open");
         _vortex = new GameObject[pointToVortex.Count - 1];
+        _listObjects = new List<OrbitVortex>();
         StartCoroutine(Rotating());
+        _configuration = config;
     }
 
     private IEnumerator Rotating()
@@ -39,6 +44,22 @@ public class MagneticBullet : MonoBehaviour
         if (collision.gameObject.TryGetComponent<OrbitVortex>(out var orbitVortex)) return;
         var vortex = collision.gameObject.AddComponent<OrbitVortex>();
         vortex.Configure(pointToVortex[indexVortex].transform);
+        _listObjects.Add(vortex);
     }
 
+    internal override void Init()
+    {
+        Invoke(nameof(Recycle), 10f);
+    }
+
+    internal override void Release()
+    {
+        foreach (var vortex in _listObjects)
+        {
+            vortex.Release();
+        }
+        _listObjects = new List<OrbitVortex>();
+        _animator.SetTrigger("close");
+        indexVortex = 0;
+    }
 }

@@ -5,10 +5,12 @@ public class OrbitVortex : MonoBehaviour
 {
     private Transform _target;
     private bool canVortex;
+    private Rigidbody _rigidbody;
 
     private void Start()
     {
-        GetComponent<Rigidbody>().useGravity = false;
+        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.useGravity = false;
     }
 
     private void Update()
@@ -21,5 +23,12 @@ public class OrbitVortex : MonoBehaviour
     {
         _target = target;
         canVortex = true;
+    }
+
+    public void Release()
+    {
+        _rigidbody.useGravity = true;
+        _rigidbody.isKinematic = false;
+        Destroy(this);
     }
 }

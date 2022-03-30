@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ResourceFromLITGM.Scripts.Guns.View
 {
-    class ParabolicBullet : MonoBehaviour, ISimulatorView
+    class ParabolicBullet : RecyclableObject, ISimulatorView
     {
         private Calculating calc;
         private float time;
@@ -34,13 +34,13 @@ namespace ResourceFromLITGM.Scripts.Guns.View
                 if((target.transform.position - transform.position).magnitude < .1f)
                 {
                     Destroy(target);
-                    Destroy(gameObject);
+                    Recycle();
                 }
             }
             catch (Exception e)
             {
                 Destroy(target);
-                Destroy(gameObject);
+                Recycle();
             }
         }
 
@@ -52,6 +52,16 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         public float PositionInY()
         {
             return transform.position.y;
+        }
+
+        internal override void Init()
+        {
+            //Invoke(nameof(Recycle), 10f);
+        }
+
+        internal override void Release()
+        {
+            //throw new NotImplementedException();
         }
     }
 }
