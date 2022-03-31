@@ -8,7 +8,7 @@ namespace StarterAssets
 {
 	public class StarterAssetsInputs : MonoBehaviour
 	{
-		[SerializeField] PlayerEx playerEx;
+		private IPlayerEx playerEx;
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
@@ -18,10 +18,6 @@ namespace StarterAssets
 		[Header("Movement Settings")]
 		public bool analogMovement;
 
-		private void Start()
-		{
-			playerEx.Configure(this);
-		}
 #if !UNITY_IOS || !UNITY_ANDROID
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
@@ -96,6 +92,11 @@ namespace StarterAssets
 		public void MoveWitOtherWay(Vector3 direction)
 		{
 			move = direction;
+		}
+
+		public void Configure(IPlayerEx playerExExternal)
+		{
+			playerEx = playerExExternal;
 		}
 	}
 	

@@ -8,11 +8,8 @@ public class PortalBullet : MonoBehaviour
     [SerializeField] private PortalBullet _camera;
     [SerializeField] private Camera cameraSelf;
     [SerializeField] private RawImage _image;
-    [SerializeField] private Collider collider;
-    private GameObject _player;
     private PortalBullet _otherCamera;
     private bool canTeleport = true;
-    private Collider wallToStay;
 
     private Camera GetCamera()
     {
@@ -30,55 +27,9 @@ public class PortalBullet : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        return;//la implementacion de esto es muy fea; solo se podra ver atravez del portal
-        if (other.CompareTag("Player"))
-        {
-            Vector3 playerFromPortal = transform.InverseTransformPoint(_player.transform.position);
-            //Debug.Log($"distance {Vector3.Distance(transform.position, _player.transform.position)}");
-            if(playerFromPortal.z <= 0.52f && wallToStay != null)
-            {
-                Debug.Log("disanble");
-                wallToStay.enabled = false;
-            }
-            else if(wallToStay != null)
-            {
-                wallToStay.enabled = true;
-            }
-            if (playerFromPortal.z <= 0.01f && canTeleport)
-            {
-                _otherCamera.DisableCollider();
-                DisableCollider();
-                //_player.transform.position = _otherCamera.transform.position + new Vector3(-playerFromPortal.x, +playerFromPortal.y, -playerFromPortal.z);
-                Quaternion ttt = Quaternion.Inverse(transform.rotation) * _player.transform.rotation;
-                _player.transform.eulerAngles = Vector3.up * (_otherCamera.transform.eulerAngles.y -
-                    (transform.eulerAngles.y - Camera.main.transform.eulerAngles.y) + 180);
-                _player.transform.localEulerAngles= Vector3.up * (_otherCamera.GetCamera().transform.eulerAngles.x + Camera.main.transform.localEulerAngles.x);
-
-                _player.transform.Translate(_otherCamera.transform.position);// + new Vector3(-playerFromPortal.x, +playerFromPortal.y, -playerFromPortal.z));
-            }
-        }
-    }
-
-    private void DisableCollider()
-    {
-        StartCoroutine(DisableColliderCoroutine());
-    }
-
-    private IEnumerator DisableColliderCoroutine()
-    {
-        canTeleport = false;
-        //collider.enabled = false;
-        yield return new WaitForSeconds(1f);
-        //collider.enabled = true;
-        canTeleport = true;
-    }
-
-    public void Configure(PortalBullet otherPortal, GameObject player, RenderTexture withShowImage,RenderTexture withCaptureCamera)
+    public void Configure(PortalBullet otherPortal, RenderTexture withShowImage,RenderTexture withCaptureCamera)
     {
         _otherCamera = otherPortal;
-        _player = player;
         _image.texture = withShowImage;
         cameraSelf.targetTexture = withCaptureCamera;
     }
@@ -92,8 +43,7 @@ public class PortalBullet : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Wall"))
                 {
-                    Debug.Log($"name {hit.collider.name}");
-                    wallToStay = hit.collider;
+                    //Debug.Log($"name {hit.collider.name}");
                     break;
                 }
             }

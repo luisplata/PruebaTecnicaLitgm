@@ -1,0 +1,17 @@
+{
+    "name": "GenericAssemble",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f96ee92f1778b5f48add556cd06ad409",
+        "GUID:4132534590ba3bf458a0cc403b36c772"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

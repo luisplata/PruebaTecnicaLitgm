@@ -6,13 +6,13 @@ using ServiceLocatorPath;
 using StarterAssets;
 using UnityEngine;
 
-public class PlayerEx : MonoBehaviour
+public class PlayerEx : MonoBehaviour, IPlayerEx
 {
+    [SerializeField] private StarterAssetsInputs extendSystem;
     [SerializeField] private Camera cam;
     [SerializeField] private AnimationsGuns animationsGuns;
     [SerializeField] private ObjectPoolForBullets objectPoolForBullets; 
     private Transform camTransform;
-    private StarterAssetsInputs _extendSystem;
 
     public void ClickToTakeGun()
     {
@@ -31,7 +31,7 @@ public class PlayerEx : MonoBehaviour
             Vector3 rotationBullet;
             GameObject rayResult = null;
             if(Physics.Raycast (camTransform.position, camTransform.forward, out var targetHit, 100)) {
-                Debug.Log($"info {targetHit.point}");
+                //Debug.Log($"info {targetHit.point}");
                 target = targetHit.point;
                 rotationBullet = hit.normal;
                 rayResult = targetHit.transform.gameObject;
@@ -47,18 +47,17 @@ public class PlayerEx : MonoBehaviour
         }
     }
 
-    public void Configure(StarterAssetsInputs extendSystem)
+    private void Start()
     {
-        _extendSystem = extendSystem;
+        extendSystem.Configure(this);
         camTransform = cam.transform;
         //adding in service locator set of object pool for bullets
         objectPoolForBullets.Configure();
         ServiceLocator.Instance.RegisterService<IBulletPool>(objectPoolForBullets);
-        
     }
 
     public void Move(Vector3 direction)
     {
-        _extendSystem.MoveWitOtherWay(direction);
+        extendSystem.MoveWitOtherWay(direction);
     }
 }

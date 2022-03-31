@@ -25,23 +25,23 @@ public class MagneticBullet : RecyclableObject
         _vortex = new GameObject[pointToVortex.Count - 1];
         _listObjects = new List<OrbitVortex>();
         StartCoroutine(Rotating());
-        _configuration = config;
+        
+        Invoke(nameof(Recycle), _configuration.TimeToEffect);
     }
 
     private IEnumerator Rotating()
     {
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(_configuration.TimeToActivateEffect);
         _animator.SetTrigger("start");
     }
 
     private void OnCollisionEnterInBullet(Collider collision)
     {
-        if (indexVortex >= pointToVortex.Count - 1 || _vortex[indexVortex] != null) return;
+        if (indexVortex >= pointToVortex.Count - 1 || collision.gameObject.TryGetComponent<OrbitVortex>(out var orbitVortex)) return;
         //Debug.Log($"name {collision.name}");
         _vortex[indexVortex] = collision.gameObject;
         indexVortex++;
         canVortex = true;
-        if (collision.gameObject.TryGetComponent<OrbitVortex>(out var orbitVortex)) return;
         var vortex = collision.gameObject.AddComponent<OrbitVortex>();
         vortex.Configure(pointToVortex[indexVortex].transform);
         _listObjects.Add(vortex);
@@ -49,7 +49,6 @@ public class MagneticBullet : RecyclableObject
 
     internal override void Init()
     {
-        Invoke(nameof(Recycle), 10f);
     }
 
     internal override void Release()
@@ -58,6 +57,7 @@ public class MagneticBullet : RecyclableObject
         {
             vortex.Release();
         }
+        _vortex = new GameObject[pointToVortex.Count - 1];
         _listObjects = new List<OrbitVortex>();
         _animator.SetTrigger("close");
         indexVortex = 0;

@@ -21,7 +21,8 @@ namespace ResourceFromLITGM.Scripts.Guns.View
 
         public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult)
         {
-            if (!rayResult.CompareTag("Wall")) return;
+            if (!configuration.TagsSuccess.Contains(rayResult.tag)) return;
+            
             var fromToRotation = Quaternion.FromToRotation(transform.forward, rotationBullet) * transform.rotation;
             if (indexToPortals == 0)
             {
@@ -45,8 +46,8 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         protected override void AfterTake()
         {
             base.AfterTake();
-            firstPortal.Configure(secondPortal, _player.gameObject, configuration.RenderTexturePortal2, configuration.RenderTexturePortal1);
-            secondPortal.Configure(firstPortal, _player.gameObject, configuration.RenderTexturePortal1, configuration.RenderTexturePortal2);
+            firstPortal.Configure(secondPortal, configuration.RenderTexturePortal2, configuration.RenderTexturePortal1);
+            secondPortal.Configure(firstPortal, configuration.RenderTexturePortal1, configuration.RenderTexturePortal2);
         }
     }
 }

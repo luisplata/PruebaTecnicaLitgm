@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: New Magnetic Configuration
   m_EditorClassIdentifier: 
   radius: 5
+  timeToEffect: 5
+  timeToActivateEffect: 0.2
