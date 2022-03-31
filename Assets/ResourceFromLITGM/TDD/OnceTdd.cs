@@ -18,7 +18,7 @@ namespace ResourceFromLITGM.TDD
 
             var result = calc.CalcParabolic3D(Vector3.zero, Vector3.zero, 0);
             
-            Assert.AreEqual(result, Vector3.up);
+            Assert.AreEqual(result, Vector3.zero);
         }
     }
 }
