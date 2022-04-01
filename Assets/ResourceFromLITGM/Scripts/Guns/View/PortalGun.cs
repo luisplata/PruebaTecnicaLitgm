@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ServiceLocatorPath;
+using UnityEngine;
 
 namespace ResourceFromLITGM.Scripts.Guns.View
 {
@@ -22,6 +23,8 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult)
         {
             if (!configuration.TagsSuccess.Contains(rayResult.tag)) return;
+            
+            ServiceLocator.Instance.GetService<IAudioManager>().Play(nameOfShootSound);
             
             var fromToRotation = Quaternion.FromToRotation(transform.forward, rotationBullet) * transform.rotation;
             if (indexToPortals == 0)

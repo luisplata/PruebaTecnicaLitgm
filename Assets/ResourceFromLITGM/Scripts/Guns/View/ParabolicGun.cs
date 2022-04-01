@@ -9,7 +9,8 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         [SerializeField] private ParabolicConfiguration _configuration;
         public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult)
         {
-            var parabolicArmo = ServiceLocator.Instance.GetService<IBulletPool>().Spawn<ParabolicBullet>(BulletType.Parabolic);//Instantiate(bullet);
+            ServiceLocator.Instance.GetService<IAudioManager>().Play(nameOfShootSound);
+            var parabolicArmo = ServiceLocator.Instance.GetService<IBulletPool>().Spawn<ParabolicBullet>(BulletType.Parabolic);
             parabolicArmo.transform.position = pointToSpawn.transform.position;
             var localRotation = pointToSpawn.transform.rotation;
             localRotation.x = 0;

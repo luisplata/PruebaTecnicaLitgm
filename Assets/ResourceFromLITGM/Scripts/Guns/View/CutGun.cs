@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using EzySlice;
 using ResourceFromLITGM.Scripts.Guns.View;
+using ServiceLocatorPath;
 using UnityEngine;
 
 class CutGun:GunCustom
@@ -15,6 +16,7 @@ class CutGun:GunCustom
     public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult)
     {
         _animator.SetTrigger(shootHashCode);
+        ServiceLocator.Instance.GetService<IAudioManager>().Play(nameOfShootSound);
         if (rayResult == null) return;
         foreach (var tag in tagsForbidden)
         {
@@ -52,5 +54,11 @@ class CutGun:GunCustom
     {
         base.AfterTake();
         _animator.SetBool("equip", true);
+    }
+
+    public override void Leave()
+    {
+        base.Leave();
+        _animator.SetBool("equip", false);
     }
 }

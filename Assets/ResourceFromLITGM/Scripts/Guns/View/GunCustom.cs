@@ -1,4 +1,5 @@
 ﻿using System;
+using ServiceLocatorPath;
 using UnityEngine;
 
 namespace ResourceFromLITGM.Scripts.Guns.View
@@ -11,6 +12,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         [SerializeField] private Collider col;
         [SerializeField] private Renderer rend;
         [SerializeField] protected GameObject pointToSpawn;
+        [SerializeField] protected string nameOfShootSound;
         protected PlayerEx _player; 
 
         public GunType Id => id;
@@ -32,6 +34,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
 
         public void Take(AnimationsGuns animationsGuns,PlayerEx player)
         {
+            ServiceLocator.Instance.GetService<IAudioManager>().Play("Load");
             //tiene que ser hijo de la referencia de la animacion con all en cero para que siga la animacion
             DisableAllComponents();
             animationsGuns.AddGun(this);
@@ -47,7 +50,7 @@ namespace ResourceFromLITGM.Scripts.Guns.View
             col.enabled = false;
         }
 
-        public void Leave()
+        public virtual void Leave()
         {
             var directionToShootGun = transform.parent.transform.forward;
             rb.isKinematic = false;

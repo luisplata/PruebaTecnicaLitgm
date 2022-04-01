@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using ResourceFromLITGM.Scripts.Guns.View;
+using ServiceLocatorPath;
 using UnityEngine;
 
 public class AnimationsGuns : MonoBehaviour

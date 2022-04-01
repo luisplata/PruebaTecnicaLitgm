@@ -162,5 +162,5 @@ MonoBehaviour:
   col: {fileID: 3097665138599418212}
   rend: {fileID: 6241997700311504036}
   pointToSpawn: {fileID: 7157002783371548179}
-  bullet: {fileID: 232180228249751954, guid: 5f1a15d8fdcc18440bf0600de0a857b4, type: 3}
+  nameOfShootSound: Shot
   configuration: {fileID: 11400000, guid: def138cdbdeab814f8a6167397b1b1bd, type: 2}

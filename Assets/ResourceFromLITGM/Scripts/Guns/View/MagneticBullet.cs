@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using ServiceLocatorPath;
 using UnityEngine;
 
 public class MagneticBullet : RecyclableObject
@@ -9,6 +10,7 @@ public class MagneticBullet : RecyclableObject
     [SerializeField] private SphereCollider _collider;
     [SerializeField] private CollisionMageneticBullet _collisionMageneticBullet;
     [SerializeField] private Animator _animator;
+    [SerializeField] private AudioSource audioSource;
     private GameObject[] _vortex;
     private int indexVortex;
     private bool canVortex;
@@ -27,6 +29,9 @@ public class MagneticBullet : RecyclableObject
         StartCoroutine(Rotating());
         
         Invoke(nameof(Recycle), _configuration.TimeToEffect);
+        audioSource.clip = ServiceLocator.Instance.GetService<IAudioManager>().GetAudioClip("Levitacion");
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     private IEnumerator Rotating()
@@ -61,5 +66,6 @@ public class MagneticBullet : RecyclableObject
         _listObjects = new List<OrbitVortex>();
         _animator.SetTrigger("close");
         indexVortex = 0;
+        audioSource.Stop();
     }
 }

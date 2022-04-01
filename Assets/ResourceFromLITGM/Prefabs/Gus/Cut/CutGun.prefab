@@ -291,6 +291,7 @@ MonoBehaviour:
   col: {fileID: 3097665138599418212}
   rend: {fileID: 6241997700311504036}
   pointToSpawn: {fileID: 7357969659163334961}
+  nameOfShootSound: Sword
   _animator: {fileID: 259396005038034325}
   elQueCorta: {fileID: 960248477200009361}
   tagsForbidden:

@@ -9,9 +9,9 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         [SerializeField] private MagneticConfiguration configuration;
         public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult)
         {
-            var magneticBullet = ServiceLocator.Instance.GetService<IBulletPool>().Spawn<MagneticBullet>(BulletType.Magnetic); //Instantiate(bullet, targetPoint, Quaternion.identity);
+            ServiceLocator.Instance.GetService<IAudioManager>().Play(nameOfShootSound);
+            var magneticBullet = ServiceLocator.Instance.GetService<IBulletPool>().Spawn<MagneticBullet>(BulletType.Magnetic);
             magneticBullet.transform.position = targetPoint;
-            //magneticBullet.transform.rotation = Quaternion.Euler(rotationBullet);
             magneticBullet.Configurate(configuration);
         }
     }
