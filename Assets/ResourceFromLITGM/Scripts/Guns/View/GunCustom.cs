@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using ServiceLocatorPath;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ResourceFromLITGM.Scripts.Guns.View
 {
@@ -13,23 +15,41 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         [SerializeField] private Renderer rend;
         [SerializeField] protected GameObject pointToSpawn;
         [SerializeField] protected string nameOfShootSound;
-        protected PlayerEx _player; 
+        [SerializeField] protected float cooldown;
+        [SerializeField] private Image imageToCooldown;
+        private bool canShot = true;
+        protected PlayerEx _player;
+        private float _cooldownTimer;
 
         public GunType Id => id;
 
         protected virtual void Start()
         {
-            var color = Id switch
+            Color color;
+            switch (Id)
             {
-                GunType.Magnetic =>Color.magenta,
-                GunType.Parabolic => Color.blue,
-                GunType.Portal => Color.green,
-                GunType.Leviosa => Color.red,
-                GunType.Cut => Color.yellow,
-                _ => Color.cyan
-            };
+                case GunType.Magnetic:
+                    color = Color.magenta;
+                    break;
+                case GunType.Parabolic:
+                    color = Color.blue;
+                    break;
+                case GunType.Portal:
+                    color = Color.green;
+                    break;
+                case GunType.Leviosa:
+                    color = Color.red;
+                    break;
+                case GunType.Cut:
+                    color = Color.yellow;
+                    break;
+                default:
+                    color = Color.cyan;
+                    break;
+            }
 
             rend.material.color = color;
+            imageToCooldown.color = color;
         }
 
         public void Take(AnimationsGuns animationsGuns,PlayerEx player)
@@ -60,5 +80,36 @@ namespace ResourceFromLITGM.Scripts.Guns.View
         }
 
         public abstract void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult);
+
+        protected IEnumerator Cooldown()
+        {
+            canShot = false;
+            yield return new WaitForSeconds(cooldown);
+            canShot = true;
+        }
+
+        public bool CanShot()
+        {
+            return canShot;
+        }
+
+        private void Update()
+        {
+            if (!canShot)
+            {
+                _cooldownTimer += Time.deltaTime;
+                imageToCooldown.fillAmount = _cooldownTimer / cooldown;
+                if(_cooldownTimer >= cooldown)
+                {
+                    _cooldownTimer = 0;
+                    canShot = true;
+                }
+            }
+        }
+
+        public void StartCooldown()
+        {
+            StartCoroutine(Cooldown());
+        }
     }
 }

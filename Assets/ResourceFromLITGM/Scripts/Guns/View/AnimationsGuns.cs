@@ -40,6 +40,8 @@ public class AnimationsGuns : MonoBehaviour
 
     public void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult)
     {
+        if (!concurrenGun.CanShot()) return;
         concurrenGun.Shoot(angle, targetPoint, rotationBullet,rayResult);
+        concurrenGun.StartCooldown();
     }
 }

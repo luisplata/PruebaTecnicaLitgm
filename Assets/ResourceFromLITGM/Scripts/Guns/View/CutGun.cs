@@ -15,9 +15,9 @@ class CutGun:GunCustom
 
     public override void Shoot(float angle, Vector3 targetPoint, Vector3 rotationBullet, GameObject rayResult)
     {
+        if (rayResult == null) return;
         _animator.SetTrigger(shootHashCode);
         ServiceLocator.Instance.GetService<IAudioManager>().Play(nameOfShootSound);
-        if (rayResult == null) return;
         foreach (var tag in tagsForbidden)
         {
             if (rayResult.CompareTag(tag))
@@ -47,7 +47,6 @@ class CutGun:GunCustom
         kesiledown.tag = "Cut";
 
         Destroy(rayResult);
-        
     }
 
     protected override void AfterTake()

@@ -54,6 +54,7 @@ public class PlayerEx : MonoBehaviour, IPlayerEx
         //adding in service locator set of object pool for bullets
         objectPoolForBullets.Configure();
         ServiceLocator.Instance.RegisterService<IBulletPool>(objectPoolForBullets);
+        Cursor.visible = false;
     }
 
     public void Move(Vector3 direction)
