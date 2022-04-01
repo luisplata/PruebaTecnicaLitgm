@@ -19,7 +19,5 @@ Patrones aplicados en la prueba:
 
 Cosas adicionales que se hicieron:
 - Utilizacion de la funcionalidad de los GitHub Actions que te permiten hacer algo de DevOps dentro de GitHub (Pestana de Actions: https://github.com/luisplata/PruebaTecnicaLitgm/actions)
-- Realizacion de pruebas unitarias utilizando TDD (faltante)
-- Implementacion de una musica y SFX para darle mas ambiente (faltante)
-- Limpieza de codigo (faltante)
-- 
+- Realizacion de pruebas unitarias utilizando TDD
+- Implementacion de una musica y SFX para darle mas ambiente
