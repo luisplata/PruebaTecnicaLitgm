@@ -25,28 +25,15 @@ namespace ResourceFromLITGM.Scripts.Guns.View
 
         protected virtual void Start()
         {
-            Color color;
-            switch (Id)
+            Color color = Id switch
             {
-                case GunType.Magnetic:
-                    color = Color.magenta;
-                    break;
-                case GunType.Parabolic:
-                    color = Color.blue;
-                    break;
-                case GunType.Portal:
-                    color = Color.green;
-                    break;
-                case GunType.Leviosa:
-                    color = Color.red;
-                    break;
-                case GunType.Cut:
-                    color = Color.yellow;
-                    break;
-                default:
-                    color = Color.cyan;
-                    break;
-            }
+                GunType.Magnetic => Color.magenta,
+                GunType.Parabolic => Color.blue,
+                GunType.Portal => Color.green,
+                GunType.Leviosa => Color.red,
+                GunType.Cut => Color.yellow,
+                _ => Color.cyan
+            };
 
             rend.material.color = color;
             imageToCooldown.color = color;

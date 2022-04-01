@@ -9,7 +9,7 @@ public class OrbitVortex : MonoBehaviour
 
     private void Start()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = TryGetComponent<Rigidbody>(out var rb) ? rb : gameObject.AddComponent<Rigidbody>();
         _rigidbody.useGravity = false;
     }
 
@@ -27,8 +27,15 @@ public class OrbitVortex : MonoBehaviour
 
     public void Release()
     {
-        _rigidbody.useGravity = true;
-        _rigidbody.isKinematic = false;
-        Destroy(this);
+        try
+        {
+            Destroy(this, .01f);
+            _rigidbody.useGravity = true;
+            _rigidbody.isKinematic = false;   
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
     }
 }
